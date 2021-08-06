@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	body::-webkit-scrollbar {
+		@apply hidden;
+	}
+
+	.lug-hero-section {
+		background: linear-gradient(180deg, #2e2e2e 0%, #0c0c0c 60.21%, #000000 100%);
+	}
+
+	.lug-activity-card {
+		@apply h-[25rem] lg:h-auto relative rounded-md overflow-hidden;
+	}
+
+	.lug-activity-card::after {
+		content: "";
+		@apply absolute inset-0 w-full h-full;
+		background: linear-gradient(6.56deg, #000000 11.05%, rgba(0, 0, 0, 0.448608) 60.09%, rgba(0, 0, 0, 0.215625) 91.77%, rgba(196, 196, 196, 0) 104.66%);
+	}
+
+	.lug-activity-card img {
+		filter: blur(1px);
+	}
+
+	.lug-team-card {
+		@apply relative bg-white rounded-md overflow-hidden py-5;
+		box-shadow: 4px 4px 24px 0px #0000005e inset;
+	}
+
+	.lug-team-card::after {
+		content: "";
+		@apply absolute inset-0 w-full h-full;
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(141, 141, 141, 0.174913) 0%, rgba(66, 66, 66, 0.291005) 30.21%, #000000 80.79%);
+	}
+}
