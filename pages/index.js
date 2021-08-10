@@ -33,7 +33,7 @@ export default function Home() {
 			{/* hero section */}
 
 			{/* about section */}
-			<section className="relative flex justify-center bg-black px-5 lg:px-10 py-10">
+			<section className="relative flex justify-center bg-black px-5 lg:px-10 py-14">
 				<img src="/assets/images/about-bg.png" alt="about section background" className="absolute -top-28 transform origin-right scale-95 z-10" />
 				<div className="w-full grid lg:grid-cols-2 items-center gap-5">
 					<div>
