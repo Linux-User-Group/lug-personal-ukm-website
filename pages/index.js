@@ -8,7 +8,7 @@ export default function Home() {
 			</Head>
 
 			{/* hero section */}
-			<section className="lug-hero-section relative flex items-center justify-center px-5 lg:px-0 py-20">
+			<section className="lug-hero-section relative flex flex-col items-center justify-center px-5 lg:px-0 py-20">
 				<img src="/assets/images/hero-image.png" alt="hero image" className="absolute top-0 left-0 transform origin-top-left scale-75" />
 				<div className="lg:w-4/5 grid lg:grid-cols-2 items-center">
 					<div>
@@ -29,6 +29,7 @@ export default function Home() {
 						<img src="/assets/images/hero-pinguin.png" alt="hero pinguin" />
 					</div>
 				</div>
+				<i className="fas fa-chevron-down text-4xl text-white text-opacity-30 animate-bounce mt-5 lg:mt-0"></i>
 			</section>
 			{/* hero section */}
 
