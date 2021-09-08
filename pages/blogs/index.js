@@ -1,6 +1,14 @@
-import Head from "next/head";
+import Head from 'next/head';
+import { useState } from 'react';
 
 export default function Blog() {
+	const [text, setText] = useState(['Where Are The Keys Skills Every Web Development Needs?', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet consectetur adipisicing.']);
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const handleChangeSlide = (index) => {
+		setCurrentIndex(index);
+	};
+
 	return (
 		<div>
 			<Head>
@@ -9,22 +17,25 @@ export default function Blog() {
 
 			{/* hero section */}
 			<section className="relative lg:h-screen flex items-center justify-center px-5 lg:px-0 pt-32 pb-20 lg:py-20">
-				<img src="/assets/images/blog-hero-bg.jpg" alt="" className="h-full w-full absolute bottom-0 object-cover" />
+				<img src={`/assets/images/blog-hero-bg-${currentIndex + 1}.jpg`} alt="" className="h-full w-full absolute bottom-0 object-cover" />
 				<div className="absolute h-full w-full bg-gradient-to-b from-transparent to-black"></div>
 				<div className="lg:w-4/5 z-10">
-					<h1 className="text-4xl font-bold text-white mb-10">
-						Where Are The Keys Skills Every <br /> Web Development Needs?
-					</h1>
+					<h1 className="w-full lg:w-1/2 text-4xl font-bold text-white mb-10">{text[currentIndex]}</h1>
 					<a href="#" className="block lg:inline-block text-white font-medium border-2 border-yellow-600 bg-yellow-600 rounded-md px-5 py-2">
 						Read More
 					</a>
+					<div className="flex space-x-2 mt-5">
+						{text.map((item, index) => (
+							<div key={index} onClick={() => handleChangeSlide(index)} className={`${currentIndex == index ? 'w-6' : 'w-3'} h-3 ${currentIndex == index ? 'bg-yellow-600' : 'bg-yellow-500'} cursor-pointer rounded-full transition-all duration-300`}></div>
+						))}
+					</div>
 				</div>
 			</section>
 			{/* hero section */}
 
 			{/* search and category section */}
 			<section className="relative flex flex-col items-center justify-center bg-black px-5 lg:px-10 py-10">
-				<img src="/assets/images/about-bg.png" alt="about section background" className="absolute -top-28 transform origin-right scale-95 z-10" />
+				<img src="/assets/images/about-bg.png" alt="about section background" className="hidden lg:block absolute -top-28 transform origin-right scale-95 z-10" />
 				<div className="w-full lg:w-1/2 flex items-center bg-[#222222] rounded-full px-5 z-10">
 					<i className="fas fa-search text-[#C2C2C2] mr-2"></i>
 					<input type="text" placeholder="Start typing to search The LUG Blog" className="w-full py-2 bg-transparent focus:outline-none placeholder-[#C2C2C2] text-white" />

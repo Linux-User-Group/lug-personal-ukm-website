@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head';
 
 export default function Home() {
 	return (
@@ -29,13 +29,15 @@ export default function Home() {
 						<img src="/assets/images/hero-pinguin.png" alt="hero pinguin" />
 					</div>
 				</div>
-				<i className="fas fa-chevron-down text-4xl text-white text-opacity-30 animate-bounce mt-5 lg:mt-0"></i>
+				<a href="#about-section">
+					<i className="fas fa-chevron-down text-4xl text-white text-opacity-30 animate-bounce mt-5 lg:mt-0"></i>
+				</a>
 			</section>
 			{/* hero section */}
 
 			{/* about section */}
-			<section className="relative flex justify-center bg-black px-5 lg:px-10 py-14">
-				<img src="/assets/images/about-bg.png" alt="about section background" className="absolute -top-28 transform origin-right scale-95 z-10" />
+			<section className="relative flex justify-center bg-black px-5 lg:px-10 py-20 lg:py-40" id="about-section">
+				<img src="/assets/images/about-bg.png" alt="about section background" className="absolute top-0 transform origin-right scale-95 z-10" />
 				<div className="w-full grid lg:grid-cols-2 items-center gap-5">
 					<div>
 						<h1 className="text-2xl text-yellow-600 font-medium">Tentang Kami</h1>
@@ -44,7 +46,7 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="h-52 lg:h-80 relative bg-gray-400 rounded-md">
-						<img src="/assets/images/group-member.png" alt="lug member 2021" className="absolute bottom-0 transform origin-bottom scale-90" />
+						<img src="/assets/images/group-member.png" alt="lug member 2021" className="absolute bottom-0 transform origin-bottom scale-90 z-10" />
 					</div>
 				</div>
 			</section>
