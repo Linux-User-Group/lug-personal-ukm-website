@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState } from 'react';
+import Link from 'next/link';
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -6,37 +7,39 @@ export default function Header() {
 	return (
 		<header className="lg:flex items-center justify-between fixed top-0 left-0 right-0 z-50 space-y-2 bg-[#282828] px-5 lg:px-10 py-4">
 			<div className="flex items-center justify-between">
-				<a href="#">
-					<img src="/assets/images/logo.png" alt="linux user group logo" className="transform scale-90" />
-				</a>
-				<i className={`lg:hidden text-white text-opacity-80 cursor-pointer fas ${!isOpen ? "fa-bars" : "fa-times"}`} onClick={() => setIsOpen(!isOpen)}></i>
+				<Link href="/">
+					<a>
+						<img src="/assets/images/logo-new.png" alt="linux user group logo" className="transform scale-90" />
+					</a>
+				</Link>
+				<i className={`lg:hidden text-white text-opacity-80 cursor-pointer fas ${!isOpen ? 'fa-bars' : 'fa-times'}`} onClick={() => setIsOpen(!isOpen)}></i>
 			</div>
-			<div className={`${!isOpen ? "hidden" : ""} lg:flex items-center lg:space-x-4 space-y-4 lg:space-y-0`}>
+			<div className={`${!isOpen ? 'hidden' : ''} lg:flex items-center lg:space-x-4 space-y-4 lg:space-y-0`}>
 				<ul className="lg:flex lg:space-x-5 space-y-2 lg:space-y-0">
 					<li>
-						<a href="#" className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">
-							home
-						</a>
+						<Link href="/">
+							<a className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">home</a>
+						</Link>
 					</li>
 					<li>
-						<a href="#" className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">
-							blog
-						</a>
+						<Link href="/blogs">
+							<a className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">blog</a>
+						</Link>
 					</li>
 					<li>
-						<a href="#" className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">
-							event
-						</a>
+						<Link href="/events">
+							<a className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">event</a>
+						</Link>
 					</li>
 					<li>
-						<a href="#" className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">
-							team
-						</a>
+						<Link href="/teams">
+							<a className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">team</a>
+						</Link>
 					</li>
 					<li>
-						<a href="#" className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">
-							contact
-						</a>
+						<Link href="/contact">
+							<a className="capitalize font-medium text-opacity-80 hover:text-opacity-95 text-white">contact</a>
+						</Link>
 					</li>
 				</ul>
 				<div className="flex items-center gap-2 border-t-2 lg:border-0 border-white border-opacity-50 pt-2 lg:pt-0">

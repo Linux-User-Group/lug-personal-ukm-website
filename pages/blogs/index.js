@@ -1,7 +1,22 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-export default function Blog() {
+import client from '../../lib/contentful';
+
+export async function getStaticProps() {
+	const res = await client.getEntries({
+		content_type: 'blog',
+	});
+
+	return {
+		props: {
+			blogs: res.items,
+		},
+		revalidate: 1,
+	};
+}
+
+export default function Blog({ blogs }) {
 	const [text, setText] = useState(['Where Are The Keys Skills Every Web Development Needs?', 'Lorem ipsum dolor sit amet consectetur adipisicing elit.', 'Lorem ipsum dolor sit amet consectetur adipisicing.']);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -108,23 +123,26 @@ export default function Blog() {
 				<div className="lg:w-4/5 z-10">
 					<h1 className="text-3xl text-yellow-600 font-bold">Article</h1>
 					<div className="grid lg:grid-cols-3 gap-10 mt-10">
-						{[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-							<div key={index} className="rounded-2xl">
-								<img src="/assets/images/blog-1.jpg" alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
-								<div className="relative bg-white p-4 rounded-b-2xl z-10">
-									<a href="#" className="font-medium hover:underline">
-										Laravel 6 Pemula: Membuat aplikasi absensi (Part 1)
-									</a>
-									<div className="flex items-center space-x-4 mt-5">
-										<img src="/assets/images/author-img.png" alt="author image" />
-										<div>
-											<h2 className="text-sm text-gray-500">Nashir Jamali</h2>
-											<h3 className="text-sm text-gray-500">Dec 22, 2019</h3>
+						{blogs.map((blog) => {
+							const { title } = blog.fields;
+							return (
+								<div key={blog.sys.id} className="rounded-2xl">
+									<img src={'https:' + blog.fields.thumbnail.fields.file.url} alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
+									<div className="relative bg-white p-4 rounded-b-2xl z-10">
+										<a href="#" className="font-medium hover:underline">
+											{title}
+										</a>
+										<div className="flex items-center space-x-4 mt-5">
+											<img src="/assets/images/author-img.png" alt="author image" />
+											<div>
+												<h2 className="text-sm text-gray-500">Nashir Jamali</h2>
+												<h3 className="text-sm text-gray-500">Dec 22, 2019</h3>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						))}
+							);
+						})}
 					</div>
 				</div>
 				<div className="w-full lg:w-4/5 border-t border-gray-400 pt-5 mt-20">

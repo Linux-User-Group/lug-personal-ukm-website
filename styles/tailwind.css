@@ -7,9 +7,9 @@
 		scroll-behavior: smooth;
 	}
 
-	body::-webkit-scrollbar {
+	/* body::-webkit-scrollbar {
 		@apply hidden;
-	}
+	} */
 
 	.lug-hero-section {
 		background: linear-gradient(180deg, #2e2e2e 0%, #0c0c0c 60.21%, #000000 100%);
@@ -30,7 +30,7 @@
 	}
 
 	.lug-team-card {
-		@apply relative bg-white rounded-md overflow-hidden py-5;
+		@apply relative bg-white rounded-md overflow-hidden;
 		box-shadow: 4px 4px 24px 0px #0000005e inset;
 	}
 

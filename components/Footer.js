@@ -3,7 +3,7 @@ export default function Footer() {
 		<footer className="bg-black px-5 lg:px-10 py-10">
 			<div className="flex flex-col lg:flex-row items-start lg:items-center justify-between space-y-5 lg:space-y-0">
 				<div className="col-span-2">
-					<img src="/assets/images/logo.png" alt="linux user group logo" className="transform scale-90" />
+					<img src="/assets/images/logo-new.png" alt="linux user group logo" className="transform scale-90" />
 					<p className="text-white mt-4">
 						Pengembang tim yang bersemangat dan <br /> desainer membangun produk digital
 					</p>

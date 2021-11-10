@@ -1,6 +1,22 @@
-import Head from "next/head";
+import Head from 'next/head';
 
-export default function Event() {
+import client from '../../lib/contentful';
+
+export async function getStaticProps() {
+	const res = await client.getEntries({
+		content_type: 'event',
+	});
+
+	return {
+		props: {
+			events: res.items,
+		},
+		revalidate: 1,
+	};
+}
+
+export default function Event({ events }) {
+	console.log(events);
 	return (
 		<div>
 			<Head>
@@ -105,17 +121,17 @@ export default function Event() {
 					<div className="lg:w-4/5 z-10">
 						<h1 className="text-3xl text-yellow-600 font-bold">All Event</h1>
 						<div className="grid lg:grid-cols-3 gap-10 mt-10">
-							{[1, 2, 3, 4, 5, 6].map((index) => (
+							{events.map((event, index) => (
 								<div key={index} className="relative rounded-2xl">
 									<div className="absolute flex items-center space-x-2 top-4 left-4 py-1 px-2 rounded-full shadow-md bg-white">
 										<img src="/assets/icons/on-going.svg" alt="on going icon" />
 										<h1 className="text-sm font-medium">On Going</h1>
 									</div>
-									<img src="/assets/images/event-1.jpg" alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
+									<img src={'https:' + event.fields.thumbnail.fields.file.url} alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
 									<div className="relative bg-white p-4 rounded-b-2xl z-10">
 										<span className="capitalize text-xs font-medium px-2 py-1 rounded-md text-gray-600 border border-gray-400">workshop</span>
 										<a href="#" className="block font-medium text-yellow-600 hover:underline mt-2">
-											IWD Workshop
+											{event.fields.title}
 										</a>
 										<span className="block text-xs font-medium text-gray-800 mt-4">By : Linux User Group</span>
 										<div className="flex flex-col space-y-2 mt-5">

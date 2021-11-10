@@ -1,6 +1,29 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
-export default function Home() {
+import client from '../lib/contentful';
+import teams from '../data/teams';
+
+export async function getStaticProps() {
+	const resBlogs = await client.getEntries({
+		content_type: 'blog',
+		limit: 3,
+	});
+
+	const resEvents = await client.getEntries({
+		content_type: 'event',
+	});
+
+	return {
+		props: {
+			blogs: resBlogs.items,
+			events: resEvents.items,
+		},
+		revalidate: 1,
+	};
+}
+
+export default function Home({ blogs, events }) {
 	return (
 		<div>
 			<Head>
@@ -104,19 +127,19 @@ export default function Home() {
 						<h1 className="text-2xl text-yellow-600 font-medium">Blog</h1>
 						<div className="flex flex-col lg:flex-row items-start lg:items-end justify-between space-y-4 lg:space-y-0">
 							<p className="text-white font-medium text-opacity-80 mt-4">Seputar artikel yang dibuat oleh team Linux User Group Surabaya</p>
-							<a href="#" className="font-medium text-yellow-600 text-opacity-80 hover:underline">
-								lebih banyak
-							</a>
+							<Link href="/blogs">
+								<a className="font-medium text-yellow-600 text-opacity-80 hover:underline">lebih banyak</a>
+							</Link>
 						</div>
 						<div className="grid lg:grid-cols-3 gap-10 mt-10">
-							{[1, 2, 3].map((index) => (
+							{blogs.map((blog, index) => (
 								<div key={index} className="relative rounded-2xl">
 									<img src="/assets/images/bubble-orange.png" alt="" className="hidden lg:block absolute -top-32 -left-32 z-10" />
 									<img src="/assets/images/bubble-yellow.png" alt="" className="hidden lg:block absolute -bottom-32 -right-32 z-10" />
-									<img src="/assets/images/blog-1.jpg" alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
+									<img src={'https:' + blog.fields.thumbnail.fields.file.url} alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
 									<div className="relative bg-white p-4 rounded-b-2xl z-10">
 										<a href="#" className="font-medium hover:underline">
-											Laravel 6 Pemula: Membuat aplikasi absensi (Part 1)
+											{blog.fields.title}
 										</a>
 										<div className="flex items-center space-x-4 mt-5">
 											<img src="/assets/images/author-img.png" alt="author image" />
@@ -142,21 +165,21 @@ export default function Home() {
 							<h1 className="text-2xl text-yellow-600 font-medium">Acara</h1>
 							<div className="flex flex-col lg:flex-row items-start lg:items-end justify-between space-y-4 lg:space-y-0">
 								<p className="text-white font-medium text-opacity-80 mt-4">Acara kami yang luar biasa. Jangan lewatkan!</p>
-								<a href="#" className="font-medium text-yellow-600 text-opacity-80 hover:underline">
-									lebih banyak
-								</a>
+								<Link href="/events">
+									<a className="font-medium text-yellow-600 text-opacity-80 hover:underline">lebih banyak</a>
+								</Link>
 							</div>
 							<div className="grid lg:grid-cols-3 gap-10 mt-10">
-								{[1, 2, 3].map((index) => (
+								{events.map((event, index) => (
 									<div key={index} className="relative rounded-2xl">
 										<div className="absolute flex items-center space-x-2 top-4 left-4 py-1 px-2 rounded-full shadow-md bg-white">
 											<img src="/assets/icons/on-going.svg" alt="on going icon" />
 											<h1 className="text-sm font-medium">On Going</h1>
 										</div>
-										<img src="/assets/images/event-1.jpg" alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
+										<img src={'https:' + event.fields.thumbnail.fields.file.url} alt="blog thumnail" className="w-full object-cover rounded-t-2xl z-10" />
 										<div className="relative bg-white p-4 rounded-b-2xl z-10">
 											<a href="#" className="font-medium hover:underline">
-												IWD Workshop
+												{event.fields.title}
 											</a>
 											<div className="flex flex-col space-y-2 mt-5">
 												<div className="flex items-start space-x-2">
@@ -182,17 +205,17 @@ export default function Home() {
 							<h1 className="text-2xl text-black font-medium">The Team</h1>
 							<div className="flex flex-col lg:flex-row items-start lg:items-end justify-between space-y-4 lg:space-y-0">
 								<p className="text-black font-medium text-opacity-80 mt-4">Pengurus Linux User Group Periode 2021</p>
-								<a href="#" className="font-medium text-yellow-600 text-opacity-80 hover:underline">
-									lebih banyak
-								</a>
+								<Link href="/teams">
+									<a className="font-medium text-yellow-600 text-opacity-80 hover:underline">lebih banyak</a>
+								</Link>
 							</div>
 							<div className="grid lg:grid-cols-4 gap-5 mt-10">
-								{[1, 2, 3, 4].map((index) => (
-									<div key={index} className="lug-team-card">
-										<img src="/assets/images/team-1.png" alt="lug member" />
+								{teams.slice(0, 4).map((team, index) => (
+									<div key={index} className="lug-team-card h-[25rem]">
+										<img src={`/assets/images/teams/${index + 1}.png`} alt="lug member" className="h-full object-cover" />
 										<div className="w-full absolute bottom-5 z-10">
-											<h2 className="text-lg text-center text-yellow-600 font-medium">Faris Riqilail</h2>
-											<h3 className="text-sm text-center text-white text-opacity-80 font-medium">Ketua {index}</h3>
+											<h2 className="text-lg text-center text-yellow-600 font-medium capitalize">{team.name}</h2>
+											<h3 className="text-sm text-center text-white text-opacity-80 font-medium capitalize">{team.position}</h3>
 											<div className="flex justify-center space-x-5 mt-10">
 												<a href="#" className="opacity-80 hover:opacity-100 transition-all duration-300">
 													<img src="/assets/icons/instagram.svg" alt="instagram icon" className="transform scale-90" />
